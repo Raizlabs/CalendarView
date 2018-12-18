@@ -81,7 +81,7 @@ public class CalendarView: UIView {
 
     public lazy var calendar: Calendar = {
         var gregorian = Calendar(identifier: .gregorian)
-        gregorian.timeZone = TimeZone(abbreviation: "UTC")!
+        //gregorian.timeZone = TimeZone(abbreviation: "UTC")!
         return gregorian
     }()
 
@@ -329,8 +329,7 @@ extension CalendarView {
      function: - scroll calendar at date (month/year) passed as parameter.
      */
     public func setDisplayDate(_ date: Date, animated: Bool = false) {
-
-        guard (date >= startDateCache) && (date <= endDateCache) else { return }
+        guard (date >= startOfMonthCache) && (date <= endDateCache) else { return }
         self.collectionView.setContentOffset(self.scrollViewOffset(for: date), animated: animated)
         self.displayDateOnHeader(date)
     }
@@ -372,12 +371,36 @@ extension CalendarView {
         goToMonthWithOffet(1)
     }
 
+    public func isLastMonth() -> Bool {
+        var dateComponents = DateComponents()
+        dateComponents.month = 1
+        guard let displayDate = self.displayDate else { return true }
+        guard let newDate = self.calendar.date(byAdding: dateComponents, to: displayDate) else { return true }
+        if newDate <= endDateCache {
+            return false
+        } else {
+            return true
+        }
+    }
+
     /*
      method: - goToPreviousMonth
      function: - scroll the calendar by one month in the past
      */
     public func goToPreviousMonth() {
         goToMonthWithOffet(-1)
+    }
+
+    public func isFirstMonth() -> Bool {
+        var dateComponents = DateComponents()
+        dateComponents.month = -1
+        guard let displayDate = self.displayDate else { return true }
+        guard let newDate = self.calendar.date(byAdding: dateComponents, to: displayDate) else { return true }
+        if newDate >= startOfMonthCache {
+            return false
+        } else {
+            return true
+        }
     }
 
     public func loadEvents(onComplete: ((Error?) -> Void)? = nil) {

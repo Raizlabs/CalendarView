@@ -9,9 +9,8 @@
 import UIKit
 
 extension CalendarView {
-
+    /// This is the view model
     public struct Style {
-
         public enum CellShapeOptions {
             case round
             case square
@@ -37,12 +36,14 @@ extension CalendarView {
         //Header
         public static var headerHeight: CGFloat = 80.0
         public static var headerTextColor = UIColor.gray
+        public static var headerDayTextColor = UIColor.gray
         public static var headerFontName: String = "Helvetica"
         public static var headerFontSize: CGFloat = 20.0
+        public static var headerDayFontName: String = "Helvetica"
+        public static var headerDayFontSize: CGFloat = 14.0
 
         //Common
         public static var cellShape                 = CellShapeOptions.bevel(4.0)
-
         public static var firstWeekday              = FirstWeekdayOptions.monday
 
         //Default Style
@@ -65,6 +66,11 @@ extension CalendarView {
         public static var cellTextColorWeekend      = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.00)
         public static var cellBorderWidthWeekend    = CGFloat(0.0)
         public static var cellColorWeekend          = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.00)
+
+        //Blackout Style
+        public static var cellTextColorBlackout      = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.00)
+        public static var cellBorderWidthBlackout    = CGFloat(0.0)
+        public static var cellColorBlackout          = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.00)
 
     }
 }
